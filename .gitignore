@@ -70,3 +70,7 @@ Thumbs.db
 *.njsproj
 *.sln
 *.sw?
+
+# Playwright
+/playwright/.cache/
+/playwright/.auth/
