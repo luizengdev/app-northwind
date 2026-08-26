@@ -1,19 +1,12 @@
-// @ts-check
 import { test, expect } from '@playwright/test';
 
-test('has title', async ({ page }) => {
-  await page.goto('https://playwright.dev/');
-
-  // Expect a title "to contain" a substring.
-  await expect(page).toHaveTitle(/Playwright/);
-});
-
-test('get started link', async ({ page }) => {
-  await page.goto('https://playwright.dev/');
-
-  // Click the get started link.
-  await page.getByRole('link', { name: 'Get started' }).click();
-
-  // Expects page to have a heading with the name of Installation.
-  await expect(page.getByRole('heading', { name: 'Installation' })).toBeVisible();
+test('test', async ({ page }) => {
+  await page.goto('https://northwind-test-platform.vercel.app/');
+  await expect(page.getByRole('heading')).toContainText('QA Automation Shop');
+  await page.getByTestId('email-input').click();
+  await page.getByTestId('email-input').fill('admin@qatest.com');
+  await page.getByTestId('password-input').click();
+  await page.getByTestId('password-input').fill('Teste@123');
+  await page.getByTestId('login-button').click();
+  await expect(page.getByRole('heading')).toContainText('QA Automation Shop');
 });
