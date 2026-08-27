@@ -1,0 +1,31 @@
+{
+    "validUser": {
+        "email": "admin@qatest.com",
+        "password": "Teste@123"
+    },
+    "invalidEmail": {
+        "email": "invalidemail",
+        "password": "Teste@123",
+        "expectMessage": "Formato de email inválido. Use: nome@dominio.com"
+    },
+    "invalidPassword": {
+        "email": "admin@qatest.com",
+        "password": "Invalid@123",
+        "expectMessage": "Email ou senha inválidos"
+    },
+    "emailVazio": {
+        "email": "",
+        "password": "Teste@123",
+        "expectMessage": "Email e senha são obrigatórios"
+    },
+    "passwordVazio": {
+        "email": "admin@qatest.com",
+        "password": "",
+        "expectMessage": "Email e senha são obrigatórios"
+    },
+    "emailNotRegistered": {
+        "email": "naocadastrado@qatest.com",
+        "password": "Teste@123",
+        "expectMessage": "Usuário não encontrado. Verifique o email ou cadastre-se"
+    }
+}
