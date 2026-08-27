@@ -1,11 +1,25 @@
 import { test, expect } from '@playwright/test';
 import loginData from '../fixtures/login-data.json';
 
-test.describe('Login - Cenários de Validação', () => {
+test.describe('Login - Cenário de Validação (Caminho feliz)', () => {
     test.beforeEach(async ({ page }) => {
         await page.goto('/');
     });
 
+    test('Validar acesso com credenciais válidas', async ({ page }) => {
+        const DASHBOARD_TITLE = 'QA Automation Shop';
+
+        await page.getByTestId('email-input').fill(loginData.validUser.email);
+        await page.getByTestId('password-input').fill(loginData.validUser.password);
+        await page.getByTestId('login-button').click();
+        await expect(page.getByRole('heading', { name: DASHBOARD_TITLE })).toBeVisible();
+    });
+});
+
+test.describe('Login - Cenários de Validação (Erros)', () => {
+    test.beforeEach(async ({ page }) => {
+        await page.goto('/');
+    });
     test('Validar acesso sem credenciais', async ({ page }) => {
         await page.getByTestId('email-input').fill(loginData.emailVazio.email);
         await page.getByTestId('password-input').fill(loginData.passwordVazio.password);
@@ -48,12 +62,5 @@ test.describe('Login - Cenários de Validação', () => {
         await page.getByTestId('password-input').fill(loginData.validUser.password);
         await page.getByTestId('login-button').click();
         await expect(page.getByTestId('email-error')).toContainText(loginData.emailNotRegistered.expectMessage);
-    });
-
-    test('Validar acesso com credenciais válidas (Caminho feliz)', async ({ page }) => {
-        await page.getByTestId('email-input').fill(loginData.validUser.email);
-        await page.getByTestId('password-input').fill(loginData.validUser.password);
-        await page.getByTestId('login-button').click();
-        await expect(page.getByRole('heading', { name: 'QA Automation Shop' })).toBeVisible();
     });
 });
