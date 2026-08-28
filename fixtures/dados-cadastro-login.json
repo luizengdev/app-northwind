@@ -2,13 +2,25 @@
     "valido": {
         "tipo": "sucesso",
         "dados": {
-            "nome": "Jaro Silva",
-            "email": "ana001@test.com",
+            "nome": "Jaro Silva D",
+            "email": "ana005@test.com",
             "senha": "Teste@123",
             "senhaConfirmacao": "Teste@123"
         },
         "esperado": {
             "mensagem": "Cadastro realizado com sucesso! Redirecionando..."
+        }
+    },
+    "nomeVazio": {
+        "tipo": "erro",
+        "dados": {
+            "nome": "",
+            "email": "vazjo@test.com",
+            "senha": "Teste@123",
+            "senhaConfirmacao": "Teste@123"
+        },
+        "esperado": {
+            "mensagem": "Nome completo é obrigatório"
         }
     },
     "nomeCurto": {
@@ -35,18 +47,6 @@
             "mensagem": "Nome deve conter apenas letras e espaços"
         }
     },
-    "emailDuplicado": {
-        "tipo": "erro",
-        "dados": {
-            "nome": "Usuário Existente",
-            "email": "admin@qatest.com",
-            "senha": "Teste@123",
-            "senhaConfirmacao": "Teste@123"
-        },
-        "esperado": {
-            "mensagem": "Email já cadastrado. Use outro email ou faça login."
-        }
-    },
     "senhaSemMaiusculas": {
         "tipo": "erro",
         "dados": {
@@ -57,18 +57,6 @@
         },
         "esperado": {
             "mensagem": "Senha deve ter pelo menos uma letra maiúscula"
-        }
-    },
-    "nomeVazio": {
-        "tipo": "erro",
-        "dados": {
-            "nome": "",
-            "email": "vazjo@test.com",
-            "senha": "Teste@123",
-            "senhaConfirmacao": "Teste@123"
-        },
-        "esperado": {
-            "mensagem": "Nome completo é obrigatório"
         }
     },
     "emailSemDominio": {

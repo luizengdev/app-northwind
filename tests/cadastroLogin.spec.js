@@ -1,5 +1,5 @@
-import { test, expect } from '@playwright/test';
-import CadastroPage from '../pages/CadastroPage';
+import { test, expect } from "@playwright/test";
+import CadastroPage from "../pages/CadastroPage";
 import dados from "../fixtures/dados-cadastro-login.json";
 
 test.describe("Cadastro de usuário", () => {
@@ -18,7 +18,7 @@ test.describe("Cadastro de usuário", () => {
       const mensagemErro = cadastroPage.getMensagemErro("nome");
       await expect(mensagemErro).toBeVisible();
       await expect(mensagemErro).toHaveText(cenario.esperado.mensagem);
-      await cadastroPage.verificarBotaoDesabilitado();
+      await expect(cadastroPage.getBotaoCadastrar()).toBeDisabled();
     });
 
     test("Deve exibir erro quando nome tiver números", async () => {
@@ -27,7 +27,7 @@ test.describe("Cadastro de usuário", () => {
       const mensagemErro = cadastroPage.getMensagemErro("nome");
       await expect(mensagemErro).toBeVisible();
       await expect(mensagemErro).toHaveText(cenario.esperado.mensagem);
-      await cadastroPage.verificarBotaoDesabilitado();
+      await expect(cadastroPage.getBotaoCadastrar()).toBeDisabled();
     });
     test("Deve exibir erro quando nome tiver vazio ", async () => {
       const cenario = dados.nomeVazio;
@@ -35,7 +35,7 @@ test.describe("Cadastro de usuário", () => {
       const mensagemErro = cadastroPage.getMensagemErro("nome");
       await expect(mensagemErro).toBeVisible();
       await expect(mensagemErro).toHaveText(cenario.esperado.mensagem);
-      await cadastroPage.verificarBotaoDesabilitado();
+      await expect(cadastroPage.getBotaoCadastrar()).toBeDisabled();
     });
   });
 
@@ -46,7 +46,7 @@ test.describe("Cadastro de usuário", () => {
       const mensagemErro = cadastroPage.getMensagemErro("email");
       await expect(mensagemErro).toBeVisible();
       await expect(mensagemErro).toHaveText(cenario.esperado.mensagem);
-      await cadastroPage.verificarBotaoDesabilitado();
+      await expect(cadastroPage.getBotaoCadastrar()).toBeDisabled();
     });
     test("Deve exibir erro quando email não tiver o domínio após o @", async () => {
       const cenario = dados.emailSemDominio;
@@ -54,7 +54,7 @@ test.describe("Cadastro de usuário", () => {
       const mensagemErro = cadastroPage.getMensagemErro("email");
       await expect(mensagemErro).toBeVisible();
       await expect(mensagemErro).toHaveText(cenario.esperado.mensagem);
-      await cadastroPage.verificarBotaoDesabilitado();
+      await expect(cadastroPage.getBotaoCadastrar()).toBeDisabled();
     });
     test("Deve exibir erro quando email não tiver a primeira parte antes do @", async () => {
       const cenario = dados.emailSemIdentificacao;
@@ -62,7 +62,7 @@ test.describe("Cadastro de usuário", () => {
       const mensagemErro = cadastroPage.getMensagemErro("email");
       await expect(mensagemErro).toBeVisible();
       await expect(mensagemErro).toHaveText(cenario.esperado.mensagem);
-      await cadastroPage.verificarBotaoDesabilitado();
+      await expect(cadastroPage.getBotaoCadastrar()).toBeDisabled();
     });
   });
 
@@ -73,21 +73,16 @@ test.describe("Cadastro de usuário", () => {
       const mensagemErro = cadastroPage.getMensagemErro("senha");
       await expect(mensagemErro).toBeVisible();
       await expect(mensagemErro).toHaveText(cenario.esperado.mensagem);
-      await cadastroPage.verificarBotaoDesabilitado();
+      await expect(cadastroPage.getBotaoCadastrar()).toBeDisabled();
     });
   });
-})
 
-// test.describe('Cadastro de Usuário (Caminho Feliz)', () => {
-//   test.beforeEach(async ({ page }) => {
-//     await page.goto('/');
-//   });
-//   test('CA08 - Cadastrar usuário com sucesso', async ({ page }) => {
-//     const cadastroPage = new CadastroPage(page);
-
-//     await page.getByRole('link', { name: 'Cadastre-se' }).click();
-//     await cadastroPage.preencherFormulario('Gotinhas prias', 'gotinhas3@ig.com', 'Gotas@1234', 'Gotas@1234');
-//     await cadastroPage.clicarBotaoCadastrar();
-//     await expect(cadastroPage.mensagemSucesso).toBeVisible();
-//   })
-// });
+  test.describe("Cadastro de Usuário (Caminho Feliz)", () => {
+    test("Cadastro de usuário com dados validos", async ({ page }) => {
+      const cenario = dados.valido;
+      await cadastroPage.preencherFormulario(cenario.dados);
+      await cadastroPage.getBotaoCadastrar().click();
+      await expect(cadastroPage.mensagemSucesso).toBeVisible();
+    });
+  });
+});
