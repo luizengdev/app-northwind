@@ -10,29 +10,13 @@ export default class CadastroPage {
         this.campoSenha = page.getByTestId("password-input");
         this.campoConfirmaSenha = page.getByTestId("confirm-password-input");
         this.botaoCadastrar = page.getByTestId('register-button');
-        this.mensagemSucesso = page.getByText("Cadastro realizado com sucesso! Redirecionando...");
-        this.mensagemNomeCurto = page.getByTestId('full-name-error');
-        this.nomeComNumeros = page.getByTestId('full-name-error');
-        this.nomeVazio = page.getByTestId('full-name-error');
-        this.emailSemArroba = page.getByTestId('email-error');
-        this.emailSemDominio = page.getByTestId('email-error');
-        this.emailSemIdentificacao = page.getByTestId('email-error');
     }
 
-
-    async preencherNome(nome) {
-        await this.campoNome.pressSequentially(nome, { delay: 50 });
-    }
-
-    async preencherEmail(email) {
-        await this.campoEmail.fill(email);
-    }
-
-    async preencherSenha(senha) {
-        await this.campoSenha.fill(senha);
-    }
-    async preencherConfirmarSenha(senha) {
-        await this.campoConfirmaSenha.fill(senha);
+    async preencherFormulario(dados) {
+        await this.campoNome.pressSequentially(dados.nome, { delay: 15 });
+        await this.campoEmail.fill(dados.email);
+        await this.campoSenha.fill(dados.senha);
+        await this.campoConfirmaSenha.fill(dados.senhaConfirmacao);
     }
 
     async clicarCadastrar() {
@@ -43,23 +27,22 @@ export default class CadastroPage {
         await expect(this.botaoCadastrar).toBeDisabled();
     }
 
-    async apagandoNome(nome) {
-        await this.campoNome.pressSequentially("a", { delay: 100 });
-        await this.campoNome.press('Backspace');
+    async apagandoNome() {
+        await this.campoNome.pressSequentially("a", { delay: 5 });
+        await this.campoNome.fill("");
     }
 
-    async mensagemError(mensagem, tipo) {
-        // Mapeia de forma direta qual seletor usar baseado na string 'nome' ou 'email'
+    getMensagemErro(tipo) {
         const mapaDeSeletores = {
-            'nome': this.mensagemNomeCurto, // getByTestId('full-name-error')
-            'email': this.emailSemArroba    // getByTestId('email-error')
+            'nome': this.page.getByTestId('full-name-error'),
+            'email': this.page.getByTestId('email-error'),
+            'senha': this.page.getByTestId('password-error')
         };
-
         const seletor = mapaDeSeletores[tipo];
-
-        // Executa as validações do Playwright
-        await expect(seletor).toBeVisible();
-        await expect(seletor).toHaveText(mensagem);
+        if (!seletor) {
+            throw new Error(`Tipo de erro "${tipo}" não mapeado em getMensagemErro`);
+        }
+        return seletor;
     }
 
 }
