@@ -1,66 +1,104 @@
-import { test, expect } from '@playwright/test';
-import loginData from '../fixtures/login-data.json';
+import { test, expect } from "@playwright/test";
+import loginData from "../fixtures/login-data.json";
 
-test.describe('Login - Cenário de Validação (Caminho feliz)', () => {
-    test.beforeEach(async ({ page }) => {
-        await page.goto('/');
-    });
+test.describe("Login - Cenário de Validação (Caminho feliz)", () => {
+  test.beforeEach(async ({ page }) => {
+    await page.goto("/");
+  });
 
-    test('Validar acesso com credenciais válidas', async ({ page }) => {
-        const DASHBOARD_TITLE = 'QA Automation Shop';
+  test("CA01 - Deve Autenticar com sucesso e redirecionar para o dashboard", async ({
+    page,
+  }) => {
+    const DASHBOARD_TITLE = "QA Automation Shop";
 
-        await page.getByTestId('email-input').fill(loginData.validUser.email);
-        await page.getByTestId('password-input').fill(loginData.validUser.password);
-        await page.getByTestId('login-button').click();
-        await expect(page.getByRole('heading', { name: DASHBOARD_TITLE })).toBeVisible();
-    });
+    await page.getByTestId("email-input").fill(loginData.validUser.email);
+    await page.getByTestId("password-input").fill(loginData.validUser.password);
+    await page.getByTestId("login-button").click();
+    await expect(
+      page.getByRole("heading", { name: DASHBOARD_TITLE }),
+    ).toBeVisible();
+  });
 });
 
-test.describe('Login - Cenários de Validação (Erros)', () => {
-    test.beforeEach(async ({ page }) => {
-        await page.goto('/');
-    });
-    test('Validar acesso sem credenciais', async ({ page }) => {
-        await page.getByTestId('email-input').fill(loginData.emailVazio.email);
-        await page.getByTestId('password-input').fill(loginData.passwordVazio.password);
-        await page.getByTestId('login-button').click();
-        await expect(page.getByTestId('password-error')).toContainText(loginData.passwordVazio.expectMessage);
-    });
+test.describe("Login - Cenários de Validação (Erros)", () => {
+  test.beforeEach(async ({ page }) => {
+    await page.goto("/");
+  });
 
-    test('Validar acesso sem senha', async ({ page }) => {
-        await page.getByTestId('email-input').fill(loginData.validUser.email);
-        await page.getByTestId('password-input').fill(loginData.passwordVazio.password);
-        await page.getByTestId('login-button').click();
-        await expect(page.getByTestId('password-error')).toContainText(loginData.passwordVazio.expectMessage);
-    });
+  test("CA02 - Deve exibir erro ao não informar nenhum campo (email e senha vazios)", async ({
+    page,
+  }) => {
+    await page
+      .getByTestId("email-input")
+      .fill(loginData.todosCamposVazios.email);
+    await page
+      .getByTestId("password-input")
+      .fill(loginData.todosCamposVazios.password);
+    await page.getByTestId("login-button").click();
+    await expect(page.getByTestId("password-error")).toContainText(
+      loginData.todosCamposVazios.expectMessage,
+    );
+  });
 
-    test('Validar acesso sem email', async ({ page }) => {
-        await page.getByTestId('email-input').fill(loginData.emailVazio.email);
-        await page.getByTestId('password-input').fill(loginData.validUser.password);
-        await page.getByTestId('login-button').click();
-        // TODO: Mapeado como 'password-error' devido a um bug/limitação no front-end atual. 
-        // Deve ser alterado para 'email-error' assim que o desenvolvimento corrigir o ID do componente.
-        await expect(page.getByTestId('password-error')).toContainText(loginData.emailVazio.expectMessage);
-    });
+  test("CA03 - Deve exibir erro ao não informar senha", async ({ page }) => {
+    await page.getByTestId("email-input").fill(loginData.validUser.email);
+    await page
+      .getByTestId("password-input")
+      .fill(loginData.passwordVazio.password);
+    await page.getByTestId("login-button").click();
+    await expect(page.getByTestId("password-error")).toContainText(
+      loginData.passwordVazio.expectMessage,
+    );
+  });
 
-    test('Validar acesso com email inválido', async ({ page }) => {
-        await page.getByTestId('email-input').fill(loginData.invalidEmail.email);
-        await page.getByTestId('password-input').fill(loginData.invalidEmail.password);
-        await page.getByTestId('login-button').click();
-        await expect(page.getByTestId('email-error')).toContainText(loginData.invalidEmail.expectMessage);
-    });
+  test("CA04 - Deve exibir erro ao não informar um email", async ({ page }) => {
+    await page.getByTestId("email-input").fill(loginData.emailVazio.email);
+    await page.getByTestId("password-input").fill(loginData.validUser.password);
+    await page.getByTestId("login-button").click();
+    // BUG-XXX: Mapeado como 'password-error' devido a um bug/limitação no front-end atual.
+    // Deve ser alterado para 'email-error' assim que o desenvolvimento corrigir o ID do componente.
+    // Substituir 'BUG-XXX' pelo número real do ticket no rastreador do time.
+    await expect(page.getByTestId("password-error")).toContainText(
+      loginData.emailVazio.expectMessage,
+    );
+  });
 
-    test('Validar acesso com senha inválida', async ({ page }) => {
-        await page.getByTestId('email-input').fill(loginData.invalidPassword.email);
-        await page.getByTestId('password-input').fill(loginData.invalidPassword.password);
-        await page.getByTestId('login-button').click();
-        await expect(page.getByTestId('password-error')).toContainText(loginData.invalidPassword.expectMessage);
-    });
+  test("CA05 - Deve exibir erro ao informar um email inválido", async ({
+    page,
+  }) => {
+    await page.getByTestId("email-input").fill(loginData.invalidEmail.email);
+    await page
+      .getByTestId("password-input")
+      .fill(loginData.invalidEmail.password);
+    await page.getByTestId("login-button").click();
+    await expect(page.getByTestId("email-error")).toContainText(
+      loginData.invalidEmail.expectMessage,
+    );
+  });
 
-    test('Validar acesso com email não cadastrado', async ({ page }) => {
-        await page.getByTestId('email-input').fill(loginData.emailNotRegistered.email);
-        await page.getByTestId('password-input').fill(loginData.validUser.password);
-        await page.getByTestId('login-button').click();
-        await expect(page.getByTestId('email-error')).toContainText(loginData.emailNotRegistered.expectMessage);
-    });
+  test("CA06 - Deve exibir erro ao informar uma senha inválida", async ({
+    page,
+  }) => {
+    await page.getByTestId("email-input").fill(loginData.invalidPassword.email);
+    await page
+      .getByTestId("password-input")
+      .fill(loginData.invalidPassword.password);
+    await page.getByTestId("login-button").click();
+    await expect(page.getByTestId("password-error")).toContainText(
+      loginData.invalidPassword.expectMessage,
+    );
+  });
+
+  test("CA07 - Deve exibir erro ao tentar acessar com email não cadastrado", async ({
+    page,
+  }) => {
+    await page
+      .getByTestId("email-input")
+      .fill(loginData.emailNotRegistered.email);
+    await page.getByTestId("password-input").fill(loginData.validUser.password);
+    await page.getByTestId("login-button").click();
+    await expect(page.getByTestId("email-error")).toContainText(
+      loginData.emailNotRegistered.expectMessage,
+    );
+  });
 });
