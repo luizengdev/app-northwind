@@ -12,7 +12,7 @@ test.describe("Cadastro de usuário", () => {
   });
 
   test.describe("Validação de Nome", () => {
-    test("Deve exibir erro quando nome tiver menos de 3 caracteres", async () => {
+    test("CA01 - Deve exibir erro quando nome tiver menos de 3 caracteres", async () => {
       const cenario = dados.nomeCurto;
       await cadastroPage.preencherFormulario(cenario.dados);
       const mensagemErro = cadastroPage.getMensagemErro("nome");
@@ -21,7 +21,7 @@ test.describe("Cadastro de usuário", () => {
       await expect(cadastroPage.getBotaoCadastrar()).toBeDisabled();
     });
 
-    test("Deve exibir erro quando nome tiver números", async () => {
+    test("CA02 - Deve exibir erro quando nome tiver números", async () => {
       const cenario = dados.nomeComNumeros;
       await cadastroPage.preencherFormulario(cenario.dados);
       const mensagemErro = cadastroPage.getMensagemErro("nome");
@@ -29,7 +29,7 @@ test.describe("Cadastro de usuário", () => {
       await expect(mensagemErro).toHaveText(cenario.esperado.mensagem);
       await expect(cadastroPage.getBotaoCadastrar()).toBeDisabled();
     });
-    test("Deve exibir erro quando nome tiver vazio ", async () => {
+    test("CA03 - Deve exibir erro quando nome estiver vazio", async () => {
       const cenario = dados.nomeVazio;
       await cadastroPage.apagandoNome(cenario.dados);
       const mensagemErro = cadastroPage.getMensagemErro("nome");
@@ -40,7 +40,7 @@ test.describe("Cadastro de usuário", () => {
   });
 
   test.describe("Validação de Email", () => {
-    test("Deve exibir erro quando email não ter o @", async () => {
+    test("CA04 - Deve exibir erro quando email não tiver o @", async () => {
       const cenario = dados.emailSemArroba;
       await cadastroPage.preencherFormulario(cenario.dados);
       const mensagemErro = cadastroPage.getMensagemErro("email");
@@ -48,7 +48,7 @@ test.describe("Cadastro de usuário", () => {
       await expect(mensagemErro).toHaveText(cenario.esperado.mensagem);
       await expect(cadastroPage.getBotaoCadastrar()).toBeDisabled();
     });
-    test("Deve exibir erro quando email não tiver o domínio após o @", async () => {
+    test("CA05 - Deve exibir erro quando email não tiver o domínio após o @", async () => {
       const cenario = dados.emailSemDominio;
       await cadastroPage.preencherFormulario(cenario.dados);
       const mensagemErro = cadastroPage.getMensagemErro("email");
@@ -56,7 +56,7 @@ test.describe("Cadastro de usuário", () => {
       await expect(mensagemErro).toHaveText(cenario.esperado.mensagem);
       await expect(cadastroPage.getBotaoCadastrar()).toBeDisabled();
     });
-    test("Deve exibir erro quando email não tiver a primeira parte antes do @", async () => {
+    test("CA06 - Deve exibir erro quando email não tiver a primeira parte antes do @", async () => {
       const cenario = dados.emailSemIdentificacao;
       await cadastroPage.preencherFormulario(cenario.dados);
       const mensagemErro = cadastroPage.getMensagemErro("email");
@@ -67,7 +67,7 @@ test.describe("Cadastro de usuário", () => {
   });
 
   test.describe("Validação de Senha", () => {
-    test("Deve exibir erro quando a senha contiver apenas letras minúsculas", async () => {
+    test("CA07 - Deve exibir erro quando a senha contiver apenas letras minúsculas", async () => {
       const cenario = dados.senhaSemMaiusculas;
       await cadastroPage.preencherFormulario(cenario.dados);
       const mensagemErro = cadastroPage.getMensagemErro("senha");
@@ -78,7 +78,9 @@ test.describe("Cadastro de usuário", () => {
   });
 
   test.describe("Cadastro de Usuário (Caminho Feliz)", () => {
-    test("Cadastro de usuário com dados validos", async ({ page }) => {
+    test("CA08 - Deve cadastrar usuário com sucesso quando os dados forem válidos", async ({
+      page,
+    }) => {
       const cenario = dados.valido;
       await cadastroPage.preencherFormulario(cenario.dados);
       await cadastroPage.getBotaoCadastrar().click();

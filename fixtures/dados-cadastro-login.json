@@ -62,7 +62,7 @@
     "emailSemDominio": {
         "tipo": "erro",
         "dados": {
-            "nome": "",
+            "nome": "Usuário Teste",
             "email": "vazjo@",
             "senha": "Teste@123",
             "senhaConfirmacao": "Teste@123"
