@@ -23,6 +23,11 @@
         "password": "",
         "expectMessage": "Email e senha são obrigatórios"
     },
+    "todosCamposVazios": {
+        "email": "",
+        "password": "",
+        "expectMessage": "Email e senha são obrigatórios"
+    },
     "emailNotRegistered": {
         "email": "naocadastrado@qatest.com",
         "password": "Teste@123",
