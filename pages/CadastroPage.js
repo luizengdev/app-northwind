@@ -8,9 +8,6 @@ export default class CadastroPage {
     this.campoSenha = page.getByTestId("password-input");
     this.campoConfirmaSenha = page.getByTestId("confirm-password-input");
     this.botaoCadastrar = page.getByTestId("register-button");
-    this.mensagemSucesso = page.getByText(
-      "Cadastro realizado com sucesso! Redirecionando...",
-    );
   }
 
   async preencherFormulario(dados) {
@@ -27,6 +24,10 @@ export default class CadastroPage {
   async apagandoNome() {
     await this.campoNome.pressSequentially("a", { delay: 5 });
     await this.campoNome.fill("");
+  }
+
+  getToast(mensagem) {
+    return this.page.getByText(mensagem);
   }
 
   getMensagemErro(tipo) {

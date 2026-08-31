@@ -64,10 +64,17 @@ test.describe("Cadastro de usuário", () => {
       await expect(mensagemErro).toHaveText(cenario.esperado.mensagem);
       await expect(cadastroPage.getBotaoCadastrar()).toBeDisabled();
     });
+    test("CA07 - Deve exibir erro quando email já estiver cadastrado", async () => {
+      const cenario = dados.emailDuplicado;
+      await cadastroPage.preencherFormulario(cenario.dados);
+      await cadastroPage.getBotaoCadastrar().click();
+      const toastErro = cadastroPage.getToast(cenario.esperado.mensagem);
+      await expect(toastErro).toBeVisible();
+    });
   });
 
   test.describe("Validação de Senha", () => {
-    test("CA07 - Deve exibir erro quando a senha contiver apenas letras minúsculas", async () => {
+    test("CA08 - Deve exibir erro quando a senha contiver apenas letras minúsculas", async () => {
       const cenario = dados.senhaSemMaiusculas;
       await cadastroPage.preencherFormulario(cenario.dados);
       const mensagemErro = cadastroPage.getMensagemErro("senha");
@@ -78,13 +85,12 @@ test.describe("Cadastro de usuário", () => {
   });
 
   test.describe("Cadastro de Usuário (Caminho Feliz)", () => {
-    test("CA08 - Deve cadastrar usuário com sucesso quando os dados forem válidos", async ({
-      page,
-    }) => {
+    test("CA09 - Deve cadastrar usuário com sucesso quando os dados forem válidos", async () => {
       const cenario = dados.valido;
       await cadastroPage.preencherFormulario(cenario.dados);
       await cadastroPage.getBotaoCadastrar().click();
-      await expect(cadastroPage.mensagemSucesso).toBeVisible();
+      const toastErro = cadastroPage.getToast(cenario.esperado.mensagem);
+      await expect(toastErro).toBeVisible();
     });
   });
 });
