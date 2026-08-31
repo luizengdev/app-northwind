@@ -1,5 +1,5 @@
 import { test, expect } from "@playwright/test";
-import CadastroPage from "../pages/CadastroPage";
+import CadastroPage from "../pages/cadastroPage";
 import dados from "../fixtures/dados-cadastro-login.json";
 
 test.describe("Cadastro de usuário", () => {
