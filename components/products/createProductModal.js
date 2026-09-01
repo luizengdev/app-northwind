@@ -1,3 +1,5 @@
+import {expect} from "@playwright/test";
+
 export default class CreateProductModal {
   constructor(page) {
     this.page = page;
@@ -25,7 +27,7 @@ export default class CreateProductModal {
   // métodos de preenchimento do modal
   async open() {
     await this.addProductButton.click();
-    await this.expect(this.modalHeading).toBeVisible();
+    await expect(this.modalHeading).toBeVisible();
   }
 
   async fillName(value) {
