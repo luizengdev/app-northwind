@@ -11,7 +11,7 @@ export default class CadastroPage {
   }
 
   async preencherFormulario(dados) {
-    await this.campoNome.pressSequentially(dados.nome, { delay: 15 });
+    await this.campoNome.pressSequentially(dados.nome, {delay: 15});
     await this.campoEmail.fill(dados.email);
     await this.campoSenha.fill(dados.senha);
     await this.campoConfirmaSenha.fill(dados.senhaConfirmacao);
@@ -22,7 +22,7 @@ export default class CadastroPage {
   }
 
   async apagandoNome() {
-    await this.campoNome.pressSequentially("a", { delay: 5 });
+    await this.campoNome.pressSequentially("a", {delay: 15});
     await this.campoNome.fill("");
   }
 
@@ -30,18 +30,16 @@ export default class CadastroPage {
     return this.page.getByText(mensagem);
   }
 
-  getMensagemErro(tipo) {
-    const mapaDeSeletores = {
-      nome: this.page.getByTestId("full-name-error"),
-      email: this.page.getByTestId("email-error"),
-      senha: this.page.getByTestId("password-error"),
-    };
-
-    const seletor = mapaDeSeletores[tipo];
-    if (!seletor) {
-      throw new Error(`Tipo de erro "${tipo}" não mapeado em getMensagemErro`);
+  getMensagemErro(field) {
+    switch (field) {
+      case "nome":
+        return this.page.getByTestId("full-name-error");
+      case "email":
+        return this.page.getByTestId("email-error");
+      case "senha":
+        return this.page.getByTestId("password-error");
+      default:
+        throw new Error(`Tipo de erro "${field}" não mapeado em getMensagemErro`);
     }
-
-    return seletor;
   }
 }
