@@ -2,12 +2,12 @@
   "valido": {
     "tipo": "sucesso",
     "dados": {
-      "name": "Camiseta Legal Tripla Face1",
+      "name": "Saca de Arroz Especial",
       "price": "49.90",
       "stock": "10",
       "sku": "CAMI-00113",
-      "category": "Acessórios",
-      "supplier": "BookExpress"
+      "category": "Alimentos Naturais",
+      "supplier": "Costa Alimentos Ltda"
     },
     "esperado": {
       "mensagem": "Produto adicionado com sucesso"
@@ -41,6 +41,20 @@
       "mensagem": "Mínimo 6 caracteres"
     }
   },
+    "nomeMuitoLongo": {
+    "tipo": "erro",
+    "dados": {
+      "name": "Nome De Produto Extremamente Longo Que Ultrapassa Limite",
+      "price": "49.90",
+      "stock": "10",
+      "sku": "CAMI-005",
+      "category": "Acessórios",
+      "supplier": "BookExpress"
+    },
+    "esperado": {
+      "mensagem": "Máximo 40 caracteres"
+    }
+  },
   "nomeComNumeros": {
     "tipo": "erro",
     "dados": {
@@ -55,9 +69,92 @@
       "mensagem": "Não pode conter números"
     }
   },
+"nomeComCaracteresEspeciais": {
+    "tipo": "erro",
+    "dados": {
+      "name": "Produto@Teste!",
+      "price": "49.90",
+      "stock": "10",
+      "sku": "CAMI-006",
+      "category": "Acessórios",
+      "supplier": "BookExpress"
+    },
+    "esperado": {
+      "mensagem": "Caracteres especiais não permitidos"
+    }
+  },
+  "nomeComEspacosDuplicados": {
+    "tipo": "erro",
+    "dados": {
+      "name": "Produto  Teste",
+      "price": "49.90",
+      "stock": "10",
+      "sku": "CAMI-007",
+      "category": "Acessórios",
+      "supplier": "BookExpress"
+    },
+    "esperado": {
+      "mensagem": "Não pode ter espaços duplicados"
+    }
+  },
 
+   "precoObrigatorio": {
+    "tipo": "erro",
+    "dados": {
+      "name": "Produto Padrao Teste",
+      "price": "",
+      "stock": "10",
+      "sku": "CAMI-008",
+      "category": "Acessórios",
+      "supplier": "BookExpress"
+    },
+    "esperado": {
+      "mensagem": "Preço é obrigatório"
+    }
+  },
+  "precoInvalido": {
+    "tipo": "erro",
+    "dados": {
+      "name": "Produto Padrao Teste",
+      "price": "0",
+      "stock": "10",
+      "sku": "CAMI-009",
+      "category": "Acessórios",
+      "supplier": "BookExpress"
+    },
+    "esperado": {
+      "mensagem": "Deve ser um valor positivo"
+    }
+  },
 
-
+ "estoqueObrigatorio": {
+    "tipo": "erro",
+    "dados": {
+      "name": "Produto Padrao Teste",
+      "price": "49.90",
+      "stock": "",
+      "sku": "CAMI-010",
+      "category": "Acessórios",
+      "supplier": "BookExpress"
+    },
+    "esperado": {
+      "mensagem": "Estoque é obrigatório"
+    }
+  },
+  "estoqueInvalido": {
+    "tipo": "erro",
+    "dados": {
+      "name": "Produto Padrao Teste",
+      "price": "49.90",
+      "stock": "1000",
+      "sku": "CAMI-011",
+      "category": "Acessórios",
+      "supplier": "BookExpress"
+    },
+    "esperado": {
+      "mensagem": "Apenas números de 1 a 999"
+    }
+  },
 
   "produtoParaEdicao": {
     "tipo": "edicao",
@@ -114,5 +211,90 @@
     "esperado": {
       "mensagem": "Nome é obrigatório"
     }
+  },
+  "skuObrigatorio": {
+    "tipo": "erro",
+    "dados": {
+      "name": "Produto Padrao Teste",
+      "price": "49.90",
+      "stock": "10",
+      "sku": "",
+      "category": "Acessórios",
+      "supplier": "BookExpress"
+    },
+    "esperado": {
+      "mensagem": "SKU é obrigatório"
+    }
+  },
+  "skuTamanhoInvalido": {
+    "tipo": "erro",
+    "dados": {
+      "name": "Produto Padrao Teste",
+      "price": "49.90",
+      "stock": "10",
+      "sku": "ABC1",
+      "category": "Acessórios",
+      "supplier": "BookExpress"
+    },
+    "esperado": {
+      "mensagem": "Deve ter entre 5 e 20 caracteres"
+    }
+  },
+  "skuFormatoInvalido": {
+    "tipo": "erro",
+    "dados": {
+      "name": "Produto Padrao Teste",
+      "price": "49.90",
+      "stock": "10",
+      "sku": "SKU_00567",
+      "category": "Acessórios",
+      "supplier": "BookExpress"
+    },
+    "esperado": {
+      "mensagem": "Apenas letras maiúsculas, números e hífen"
+    }
+  },
+  "skuNaoComecaComLetra": {
+    "tipo": "erro",
+    "dados": {
+      "name": "Produto Padrao Teste",
+      "price": "49.90",
+      "stock": "10",
+      "sku": "1SKU-005",
+      "category": "Acessórios",
+      "supplier": "BookExpress"
+    },
+    "esperado": {
+      "mensagem": "Deve começar com letra maiúscula"
+    }
+  },
+  "categoriaObrigatoria": {
+    "tipo": "erro",
+    "dados": {
+      "name": "Produto Padrao Teste",
+      "price": "49.90",
+      "stock": "10",
+      "sku": "CAMI-012",
+      "category": "",
+      "supplier": "BookExpress"
+    },
+    "esperado": {
+      "mensagem": "Erro ao adicionar"
+    }
+  },
+  "fornecedorObrigatorio": {
+    "tipo": "erro",
+    "dados": {
+      "name": "Produto Padrao Teste",
+      "price": "49.90",
+      "stock": "10",
+      "sku": "CAMI-013",
+      "category": "Acessórios Automotivos",
+      "supplier": ""
+    },
+    "esperado": {
+      "mensagem": "Erro ao adicionar"
+    }
   }
+  
 }

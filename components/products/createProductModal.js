@@ -46,12 +46,30 @@ export default class CreateProductModal {
     await this.skuInput.fill(value);
   }
 
+  /* Seleciona uma categoria no dropdown pelo nome.
+    Se name for vazio, sai sem ação; caso contrário abre o dropdown,
+    localiza a opção correspondente, verifica que está visível, clica nela
+    e confirma que o dropdown exibe o nome selecionado.*/
   async selectCategory(name) {
-    await this.categoryDropdown.selectOption({label: name});
+    if (!name || name.trim() === "") return;
+
+    await this.categoryDropdown.click();
+    const option = this.page.locator('[data-testid^="add-product-category-option-"]').filter({hasText: name});
+
+    await expect(option.first()).toBeVisible();
+    await option.first().click();
+    await expect(this.categoryDropdown).toContainText(name);
   }
 
   async selectSupplier(name) {
-    await this.supplierDropdown.selectOption({label: name});
+    if (!name || name.trim() === "") return;
+
+    await this.supplierDropdown.click();
+    const option = this.page.locator('[data-testid^="add-product-supplier-option-"]').filter({hasText: name});
+
+    await expect(option.first()).toBeVisible();
+    await option.first().click();
+    await expect(this.supplierDropdown).toContainText(name);
   }
 
   // ações do modal
@@ -61,6 +79,11 @@ export default class CreateProductModal {
 
   async cancel() {
     await this.cancelButton.click();
+  }
+
+  // mensagens exibidas flutuante de erro ou sucesso
+  getToast(mensagem) {
+    return this.page.getByText(mensagem);
   }
 
   // acessor para os elementos de erro por campo
