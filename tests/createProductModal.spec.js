@@ -2,6 +2,7 @@ import {test, expect} from "@playwright/test";
 import loginAsAdmin from "./helpers/auth";
 import CreateProductModal from "../components/products/createProductModal";
 import dados from "../fixtures/products-data.json";
+import ProductsPage from "../pages/productsPage";
 
 test.describe("Cadastro de Produto", () => {
   let modal;
@@ -177,6 +178,36 @@ test.describe("Cadastro de Produto", () => {
       await modal.submit();
       const toastSucesso = modal.getToast(cenario.esperado.mensagem);
       await expect(toastSucesso).toBeVisible();
+    });
+  });
+
+  test.describe("[Gestão de Produtos] Elementos da Tela de Produtos", () => {
+    test.beforeEach(async ({page}) => {
+      await page.goto("/products");
+    });
+    test("CT18 - Deve exibir os filtros de busca", async ({page}) => {
+      const productsPage = new ProductsPage(page);
+      await expect(productsPage.productSearchInput).toBeVisible();
+      await expect(productsPage.categoryFilterSelect).toBeVisible();
+      await expect(productsPage.supplierFilterSelect).toBeVisible();
+    });
+    test("CT19 - Deve exibir ação de edição disponível para o produto", async ({page}) => {
+      const productsPage = new ProductsPage(page);
+      await expect(productsPage.getFirstEditButton()).toBeVisible();
+    });
+    test("CT20 - Deve exibir ação de exclusão disponível para o produto", async ({page}) => {
+      const productsPage = new ProductsPage(page);
+      await expect(productsPage.getFirstDeleteButton()).toBeVisible();
+    });
+    test("CT21 - Deve exibir ação de visualização de detalhes do produto", async ({page}) => {
+      const productsPage = new ProductsPage(page);
+      await expect(productsPage.getFirstViewDetailsButton()).toBeVisible();
+    });
+    test("CT22 - Deve exibir controles de paginação", async ({page}) => {
+      const productsPage = new ProductsPage(page);
+      await expect(productsPage.productsCount).toBeVisible();
+      await expect(productsPage.currentPage).toBeVisible();
+      await expect(productsPage.nextPageButton).toBeVisible();
     });
   });
 });
