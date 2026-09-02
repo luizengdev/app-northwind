@@ -151,3 +151,41 @@ Após cadastro com sucesso:
 - **Então** devo ver mensagem "Produto adicionado com sucesso!"
 - **E** o modal deve fechar automaticamente
 - **E** o produto deve aparecer na listagem
+
+---
+
+### Gestão de Produtos na Tela de Listagem
+
+#### Critério 18 – Filtros de Busca Disponíveis
+
+- **Dado** que estou na tela de produtos
+- **Quando** a listagem é carregada
+- **Então** devo visualizar o campo de busca por nome
+- **E** devo visualizar o filtro por categoria
+- **E** devo visualizar o filtro por fornecedor
+
+#### Critério 19 – Ação de Edição Disponível para o Produto
+
+- **Dado** que existe ao menos um produto na listagem
+- **Quando** a tabela é exibida
+- **Então** devo visualizar a ação de edição para o primeiro produto
+
+#### Critério 20 – Ação de Exclusão Disponível para o Produto
+
+- **Dado** que existe ao menos um produto na listagem
+- **Quando** a tabela é exibida
+- **Então** devo visualizar a ação de exclusão para o primeiro produto
+
+#### Critério 21 – Ação de Visualização de Detalhes Disponível
+
+- **Dado** que existe ao menos um produto na listagem
+- **Quando** a tabela é exibida
+- **Então** devo visualizar a ação de visualização de detalhes para o primeiro produto
+
+#### Critério 22 – Controles de Paginação Exibidos
+
+- **Dado** que estou na tela de produtos
+- **Quando** a listagem é carregada
+- **Então** devo visualizar a contagem de produtos
+- **E** devo visualizar a página atual
+- **E** devo visualizar o botão para avançar para a próxima página
