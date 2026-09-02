@@ -8,13 +8,10 @@ export default class CadastroPage {
     this.campoSenha = page.getByTestId("password-input");
     this.campoConfirmaSenha = page.getByTestId("confirm-password-input");
     this.botaoCadastrar = page.getByTestId("register-button");
-    this.mensagemSucesso = page.getByText(
-      "Cadastro realizado com sucesso! Redirecionando...",
-    );
   }
 
   async preencherFormulario(dados) {
-    await this.campoNome.pressSequentially(dados.nome, { delay: 15 });
+    await this.campoNome.pressSequentially(dados.nome, {delay: 15});
     await this.campoEmail.fill(dados.email);
     await this.campoSenha.fill(dados.senha);
     await this.campoConfirmaSenha.fill(dados.senhaConfirmacao);
@@ -25,22 +22,24 @@ export default class CadastroPage {
   }
 
   async apagandoNome() {
-    await this.campoNome.pressSequentially("a", { delay: 5 });
+    await this.campoNome.pressSequentially("a", {delay: 15});
     await this.campoNome.fill("");
   }
 
-  getMensagemErro(tipo) {
-    const mapaDeSeletores = {
-      nome: this.page.getByTestId("full-name-error"),
-      email: this.page.getByTestId("email-error"),
-      senha: this.page.getByTestId("password-error"),
-    };
+  getToast(mensagem) {
+    return this.page.getByText(mensagem);
+  }
 
-    const seletor = mapaDeSeletores[tipo];
-    if (!seletor) {
-      throw new Error(`Tipo de erro "${tipo}" não mapeado em getMensagemErro`);
+  getMensagemErro(field) {
+    switch (field) {
+      case "nome":
+        return this.page.getByTestId("full-name-error");
+      case "email":
+        return this.page.getByTestId("email-error");
+      case "senha":
+        return this.page.getByTestId("password-error");
+      default:
+        throw new Error(`Tipo de erro "${field}" não mapeado em getMensagemErro`);
     }
-
-    return seletor;
   }
 }
