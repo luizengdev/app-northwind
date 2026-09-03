@@ -59,6 +59,18 @@
             "mensagem": "Senha deve ter pelo menos uma letra maiúscula"
         }
     },
+    "senhaDivergente": {
+        "tipo": "erro",
+        "dados": {
+            "nome": "Usuário Teste",
+            "email": "divergente.teste@gmail.com",
+            "senha": "Teste@123",
+            "senhaConfirmacao": "Teste@456"
+        },
+        "esperado": {
+            "mensagem": "Senhas não conferem"
+        }
+    },
     "emailSemDominio": {
         "tipo": "erro",
         "dados": {
@@ -95,16 +107,16 @@
             "mensagem": "E-mail inválido"
         }
     },
-     "emailDuplicado": {
-    "tipo": "erro",
-    "dados": {
-      "nome": "Usuário Existente",
-      "email": "admin@qatest.com",
-      "senha": "Teste@123",
-      "senhaConfirmacao": "Teste@123"
-    },
-    "esperado": {
-      "mensagem": "Email já cadastrado. Tente fazer login ou use outro email"
+    "emailDuplicado": {
+        "tipo": "erro",
+        "dados": {
+            "nome": "Usuário Existente",
+            "email": "admin@qatest.com",
+            "senha": "Teste@123",
+            "senhaConfirmacao": "Teste@123"
+        },
+        "esperado": {
+            "mensagem": "Email já cadastrado. Tente fazer login ou use outro email"
+        }
     }
-  }
 }
