@@ -3,6 +3,7 @@ import loginAsAdmin from "./helpers/auth";
 import CreateProductModal from "../components/products/createProductModal";
 import dados from "../fixtures/products-data.json";
 import ProductsPage from "../pages/productsPage";
+import {faker} from "@faker-js/faker/locale/pt_BR";
 
 test.describe("Cadastro de Produto", () => {
   let modal;
@@ -169,10 +170,21 @@ test.describe("Cadastro de Produto", () => {
     test("CT17 - Deve cadastrar o produto com sucesso e disponibilizá-lo no catálogo", async () => {
       const cenario = dados.valido;
 
-      await modal.fillName(cenario.dados.name);
+      const nomeProduto = faker.commerce
+        .productName()
+        .replace(/[^A-Za-zÀ-ÖØ-öø-ÿ\s]/g, "")
+        .replace(/\s+/g, " ")
+        .trim();
+      const skuProduto = faker.string.alphanumeric(8).toUpperCase();
+
+      // await modal.fillName(cenario.dados.name);
+      // await modal.fillSku(cenario.dados.sku);
+      // uso do faker para geração aleatória
+      await modal.fillName(nomeProduto);
+      await modal.fillSku(skuProduto);
+
       await modal.fillPrice(cenario.dados.price);
       await modal.fillStock(cenario.dados.stock);
-      await modal.fillSku(cenario.dados.sku);
       await modal.selectCategory(cenario.dados.category);
       await modal.selectSupplier(cenario.dados.supplier);
       await modal.submit();
