@@ -167,11 +167,11 @@
       "supplier": "BookExpress"
     },
     "dadosEdicao": {
-      "novoNome": "Produto Controle Editado Duplo",
+      "novoNome": "Produto Controle Editado triplo",
       "novoPreco": "40.00"
     },
     "esperado": {
-      "mensagem": "Produto atualizado com sucesso!"
+      "mensagem": "Produto editado com sucesso!"
     }
   },
 
@@ -190,7 +190,7 @@
       "novoPreco": "30.00"
     },
     "esperado": {
-      "mensagem": "Produto atualizado com sucesso!"
+      "mensagem": "Produto editado com sucesso!"
     }
   },
 
@@ -200,16 +200,6 @@
     "nome": "Produto Inexeistente QA 9999",
     "esperado": {
       "mensagem": "Nenhum produto encontrado"
-    }
-  },
-
-  "edicaoNomeObrigatorio": {
-    "tipo": "erro",
-    "dados": {
-      "name": ""
-    },
-    "esperado": {
-      "mensagem": "Nome é obrigatório"
     }
   },
   "skuObrigatorio": {
@@ -294,6 +284,42 @@
     },
     "esperado": {
       "mensagem": "Erro ao adicionar"
+    }
+  },
+  "edicaoNomeObrigatorio": {
+    "tipo": "erro",
+    "dados": {
+      "name": ""
+    },
+    "esperado": {
+      "mensagem": "Nome é obrigatório"
+    }
+  },
+  "edicaoPrecoObrigatorio": {
+    "tipo": "erro",
+    "dados": {
+      "price": ""
+    },
+    "esperado": {
+      "mensagem": "Preço é obrigatório"
+    }
+  },
+  "edicaoEstoqueObrigatorio": {
+    "tipo": "erro",
+    "dados": {
+      "stock": ""
+    },
+    "esperado": {
+      "mensagem": "Estoque é obrigatório"
+    }
+  },
+  "edicaoSkuObrigatorio": {
+    "tipo": "erro",
+    "dados": {
+      "sku": ""
+    },
+    "esperado": {
+      "mensagem": "SKU é obrigatório"
     }
   }
   
