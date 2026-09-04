@@ -38,6 +38,8 @@ export default class CadastroPage {
         return this.page.getByTestId("email-error");
       case "senha":
         return this.page.getByTestId("password-error");
+      case "senhaConfirmacao":
+        return this.page.getByTestId("confirm-password-error");
       default:
         throw new Error(`Tipo de erro "${field}" não mapeado em getMensagemErro`);
     }

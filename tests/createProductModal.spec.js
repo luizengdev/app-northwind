@@ -2,6 +2,8 @@ import {test, expect} from "@playwright/test";
 import loginAsAdmin from "./helpers/auth";
 import CreateProductModal from "../components/products/createProductModal";
 import dados from "../fixtures/products-data.json";
+import ProductsPage from "../pages/productsPage";
+import {faker} from "@faker-js/faker/locale/pt_BR";
 
 test.describe("Cadastro de Produto", () => {
   let modal;
@@ -168,15 +170,56 @@ test.describe("Cadastro de Produto", () => {
     test("CT17 - Deve cadastrar o produto com sucesso e disponibilizá-lo no catálogo", async () => {
       const cenario = dados.valido;
 
-      await modal.fillName(cenario.dados.name);
+      const nomeProduto = faker.commerce
+        .productName()
+        .replace(/[^A-Za-zÀ-ÖØ-öø-ÿ\s]/g, "")
+        .replace(/\s+/g, " ")
+        .trim();
+      const skuProduto = faker.string.alphanumeric(8).toUpperCase();
+
+      // await modal.fillName(cenario.dados.name);
+      // await modal.fillSku(cenario.dados.sku);
+      // uso do faker para geração aleatória
+      await modal.fillName(nomeProduto);
+      await modal.fillSku(skuProduto);
+
       await modal.fillPrice(cenario.dados.price);
       await modal.fillStock(cenario.dados.stock);
-      await modal.fillSku(cenario.dados.sku);
       await modal.selectCategory(cenario.dados.category);
       await modal.selectSupplier(cenario.dados.supplier);
       await modal.submit();
       const toastSucesso = modal.getToast(cenario.esperado.mensagem);
       await expect(toastSucesso).toBeVisible();
+    });
+  });
+
+  test.describe("[Gestão de Produtos] Elementos da Tela de Produtos", () => {
+    test.beforeEach(async ({page}) => {
+      await page.goto("/products");
+    });
+    test("CT18 - Deve exibir os filtros de busca", async ({page}) => {
+      const productsPage = new ProductsPage(page);
+      await expect(productsPage.productSearchInput).toBeVisible();
+      await expect(productsPage.categoryFilterSelect).toBeVisible();
+      await expect(productsPage.supplierFilterSelect).toBeVisible();
+    });
+    test("CT19 - Deve exibir ação de edição disponível para o produto", async ({page}) => {
+      const productsPage = new ProductsPage(page);
+      await expect(productsPage.getFirstEditButton()).toBeVisible();
+    });
+    test("CT20 - Deve exibir ação de exclusão disponível para o produto", async ({page}) => {
+      const productsPage = new ProductsPage(page);
+      await expect(productsPage.getFirstDeleteButton()).toBeVisible();
+    });
+    test("CT21 - Deve exibir ação de visualização de detalhes do produto", async ({page}) => {
+      const productsPage = new ProductsPage(page);
+      await expect(productsPage.getFirstViewDetailsButton()).toBeVisible();
+    });
+    test("CT22 - Deve exibir controles de paginação", async ({page}) => {
+      const productsPage = new ProductsPage(page);
+      await expect(productsPage.productsCount).toBeVisible();
+      await expect(productsPage.currentPage).toBeVisible();
+      await expect(productsPage.nextPageButton).toBeVisible();
     });
   });
 });
