@@ -30,7 +30,7 @@ export default class ProductsPage {
     };
     this.productAction = {
       edit: (id) => page.getByTestId(`edit-product-${id}`),
-      delete: (id) => page.getByTestId(`delete-product-${id}`), // editar
+      delete: (id) => page.getByTestId(`delete-product-${id}`),
       viewDetails: (id) => page.getByTestId(`view-details-product-${id}`),
     };
 
@@ -158,5 +158,87 @@ export default class ProductsPage {
 
   getProductAction(id, action) {
     return this.productAction[action](id);
+  }
+
+  async getLastProductName() {
+    const rows = this.page.locator('[data-testid^="product-row-"]');
+    await rows.first().waitFor({state: "visible", timeout: 3000});
+
+    const count = await rows.count();
+    if (count === 0) {
+      throw new Error("Nenhum produto disponível para consultar o nome");
+    }
+
+    const lastRow = rows.nth(count - 1);
+    const productId = await lastRow.getAttribute("data-testid");
+    const id = productId?.replace("product-row-", "");
+
+    if (!id) {
+      throw new Error("Não foi possível identificar o ID do último produto");
+    }
+
+    const nameProduct = await this.productCell.name(id).textContent();
+    return nameProduct.trim();
+  }
+
+  async getFirstProductName() {
+    const firstRow = this.getFirstProductRow();
+    await firstRow.waitFor({state: "visible", timeout: 3000});
+
+    const productId = await firstRow.getAttribute("data-testid");
+    const id = productId?.replace("product-row-", "");
+
+    if (!id) {
+      throw new Error("Não foi possível identificar o ID do primeiro produto");
+    }
+
+    const productName = (await this.getProductCell(id, "name").textContent())?.trim();
+
+    if (!productName) {
+      throw new Error("Não foi possível identificar o nome do primeiro produto");
+    }
+    return productName;
+  }
+
+  // Clica em Delete no último produto da lista
+  async clickDeleteLastProduct() {
+    const rows = this.page.locator('[data-testid^="product-row-"]');
+    await rows.first().waitFor({state: "visible", timeout: 3000});
+
+    const count = await rows.count();
+    if (count === 0) {
+      throw new Error("Nenhum produto disponível para exclusão");
+    }
+
+    const lastRow = rows.nth(count - 1);
+    const productId = await lastRow.getAttribute("data-testid");
+    const id = productId?.replace("product-row-", "");
+
+    if (!id) {
+      throw new Error("Não foi possível identificar o ID do último produto para excluir");
+    }
+
+    await this.productAction.delete(id).click();
+  }
+
+  // Clica em Delete no primeiro produto da lista
+  async clickDeleteFirstProduct() {
+    const rows = this.page.locator('[data-testid^="product-row-"]');
+    await rows.first().waitFor({state: "visible", timeout: 3000});
+
+    const count = await rows.count();
+    if (count === 0) {
+      throw new Error("Nenhum produto disponível para exclusão");
+    }
+
+    const firstRow = rows.first();
+    const productId = await firstRow.getAttribute("data-testid");
+    const id = productId?.replace("product-row-", "");
+
+    if (!id) {
+      throw new Error("Não foi possível identificar o ID do primeiro produto para excluir");
+    }
+
+    await this.productAction.delete(id).click();
   }
 }
