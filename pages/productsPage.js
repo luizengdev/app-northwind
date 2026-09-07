@@ -152,6 +152,10 @@ export default class ProductsPage {
     return this.firstViewDetailsButton;
   }
 
+  getLastViewDetailsButton() {
+    return this.page.locator('[data-testid^="view-details-product-"]').last();
+  }
+
   getProductCell(id, field) {
     return this.productCell[field](id);
   }
