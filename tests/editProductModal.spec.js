@@ -1,4 +1,5 @@
 import {test, expect} from "@playwright/test";
+import {severity, tag} from "allure-js-commons";
 import loginAsAdmin from "./helpers/auth";
 import EditProductModal from "../components/products/editProductModal";
 import dados from "../fixtures/products-data.json";
@@ -24,6 +25,9 @@ test.describe("[Gestão de Produtos] Edição de Produtos", () => {
     });
 
     test("CT01 - Deve exibir erro quando o nome do produto estiver vazio na edição", async () => {
+      await severity("normal");
+      await tag("ui");
+
       const cenario = dados.edicaoNomeObrigatorio;
 
       await modal.fillName(cenario.dados.name);
@@ -33,6 +37,9 @@ test.describe("[Gestão de Produtos] Edição de Produtos", () => {
     });
 
     test("CT02 - Deve exibir erro quando o preço do produto estiver vazio na edição", async () => {
+      await severity("normal");
+      await tag("ui");
+
       const cenario = dados.edicaoPrecoObrigatorio;
 
       await modal.fillPrice(cenario.dados.price);
@@ -42,6 +49,9 @@ test.describe("[Gestão de Produtos] Edição de Produtos", () => {
     });
 
     test("CT03 - Deve exibir erro quando o estoque do produto estiver vazio na edição", async () => {
+      await severity("normal");
+      await tag("ui");
+
       const cenario = dados.edicaoEstoqueObrigatorio;
 
       await modal.fillStock(cenario.dados.stock);
@@ -51,6 +61,9 @@ test.describe("[Gestão de Produtos] Edição de Produtos", () => {
     });
 
     test("CT04 - Deve exibir erro quando o SKU do produto estiver vazio na edição", async () => {
+      await severity("normal");
+      await tag("ui");
+
       const cenario = dados.edicaoSkuObrigatorio;
 
       await modal.fillSku(cenario.dados.sku);
@@ -62,6 +75,9 @@ test.describe("[Gestão de Produtos] Edição de Produtos", () => {
 
   test.describe("Edição de Produto - Regras de Existência", () => {
     test("CT05 - Não deve exibir botão de editar quando o produto não existir", async ({page}) => {
+      await severity("minor");
+      await tag("ui");
+
       const nomeFake = dados.produtoInexistente.nome;
       const row = productsPage.getProductRowByName(nomeFake);
 
@@ -72,6 +88,9 @@ test.describe("[Gestão de Produtos] Edição de Produtos", () => {
     });
 
     test("CT06 - Deve exibir mensagem de produto não encontrado ao buscar nome inexistente", async ({page}) => {
+      await severity("normal");
+      await tag("ui");
+
       const nomeFake = dados.produtoInexistente.nome;
 
       await productsPage.productSearchInput.fill(nomeFake);
@@ -81,6 +100,9 @@ test.describe("[Gestão de Produtos] Edição de Produtos", () => {
 
   test.describe("Edição de Produto - Edição com Fluxos de Sucesso", () => {
     test("CT07 - Deve atualizar as informações do produto quando ele já estiver cadastrado", async ({page}) => {
+      await severity("critical");
+      await tag("ui");
+
       const cenario = dados.produtoParaEdicao;
 
       await productsPage.editFirstProduct();
