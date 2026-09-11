@@ -17,6 +17,12 @@ import {defineConfig, devices} from "@playwright/test";
 export default defineConfig({
   testDir: "./tests",
   /* Run tests in files in parallel */
+
+  // timeout: 10000, // Maximum time one test can run for.
+  // expect: {
+  //   timeout: 5000, // Maximum time expect() should wait for the condition to be met.
+  // },
+
   fullyParallel: true,
   /* Fail the build on CI if you accidentally left test.only in the source code. */
   forbidOnly: !!process.env.CI,
@@ -40,7 +46,7 @@ export default defineConfig({
     // trace: "retain-on-failure",  // Capture trace when test fails
     // trace: "on",                 // Capture trace for all tests
 
-    // screenshot: "only-on-failure", // Capture screenshots when test fails
+    screenshot: "only-on-failure", // Capture screenshots when test fails
     // screenshot: "on",           // Capture screenshots for all tests
 
     // video: "retain-on-failure", // Capture video when test fails

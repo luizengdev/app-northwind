@@ -8,10 +8,12 @@ import {faker} from "@faker-js/faker/locale/pt_BR";
 
 test.describe("Cadastro de Produto", () => {
   let modal;
+  let productsPage;
 
   test.beforeEach(async ({page}) => {
     await loginAsAdmin(page);
     modal = new CreateProductModal(page);
+    productsPage = new ProductsPage(page);
     await modal.open();
   });
 
@@ -256,7 +258,6 @@ test.describe("Cadastro de Produto", () => {
       await severity("minor");
       await tag("ui");
 
-      const productsPage = new ProductsPage(page);
       await expect(productsPage.productSearchInput).toBeVisible();
       await expect(productsPage.categoryFilterSelect).toBeVisible();
       await expect(productsPage.supplierFilterSelect).toBeVisible();
@@ -264,29 +265,22 @@ test.describe("Cadastro de Produto", () => {
     test("CT19 - Deve exibir ação de edição disponível para o produto", async ({page}) => {
       await severity("minor");
       await tag("ui");
-
-      const productsPage = new ProductsPage(page);
       await expect(productsPage.getFirstEditButton()).toBeVisible();
     });
     test("CT20 - Deve exibir ação de exclusão disponível para o produto", async ({page}) => {
       await severity("minor");
       await tag("ui");
-
-      const productsPage = new ProductsPage(page);
       await expect(productsPage.getFirstDeleteButton()).toBeVisible();
     });
     test("CT21 - Deve exibir ação de visualização de detalhes do produto", async ({page}) => {
       await severity("minor");
       await tag("ui");
-
-      const productsPage = new ProductsPage(page);
       await expect(productsPage.getFirstViewDetailsButton()).toBeVisible();
     });
     test("CT22 - Deve exibir controles de paginação", async ({page}) => {
       await severity("minor");
       await tag("ui");
 
-      const productsPage = new ProductsPage(page);
       await expect(productsPage.productsCount).toBeVisible();
       await expect(productsPage.currentPage).toBeVisible();
       await expect(productsPage.nextPageButton).toBeVisible();
