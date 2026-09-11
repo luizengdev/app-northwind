@@ -1,4 +1,5 @@
 import {test, expect} from "@playwright/test";
+import {severity, tag} from "allure-js-commons";
 import loginAsAdmin from "./helpers/auth";
 import DeleteConfirmationDialog from "../components/products/deleteConfirmationDialog";
 import dados from "../fixtures/products-data.json";
@@ -18,6 +19,9 @@ test.describe("[Gestão de Produtos] Exclusão de Produtos", () => {
   });
 
   test("CT01 - Deve exibir o diálogo de confirmação ao clicar em excluir", async () => {
+    await severity("normal");
+    await tag("ui");
+
     await productsPage.clickDeleteLastProduct();
 
     await expect(dialog.heading).toBeVisible();
@@ -27,6 +31,9 @@ test.describe("[Gestão de Produtos] Exclusão de Produtos", () => {
   });
 
   test("CT02 - Deve manter o produto quando a exclusão for cancelada", async () => {
+    await severity("normal");
+    await tag("ui");
+
     const productName = await productsPage.getLastProductName();
 
     await productsPage.clickDeleteLastProduct();
@@ -38,6 +45,9 @@ test.describe("[Gestão de Produtos] Exclusão de Produtos", () => {
   });
 
   test("CT03 - Deve excluir o último produto da página após confirmação", async ({page}) => {
+    await severity("critical");
+    await tag("ui");
+
     const productName = await productsPage.getLastProductName();
 
     await productsPage.clickDeleteLastProduct();
@@ -49,6 +59,9 @@ test.describe("[Gestão de Produtos] Exclusão de Produtos", () => {
   });
 
   test("CT04 - Deve excluir o primeiro produto da página após confirmação", async ({page}) => {
+    await severity("critical");
+    await tag("ui");
+
     const productName = await productsPage.getFirstProductName();
 
     await productsPage.clickDeleteFirstProduct();

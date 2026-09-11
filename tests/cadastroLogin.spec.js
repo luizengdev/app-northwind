@@ -1,4 +1,5 @@
 import {test, expect} from "@playwright/test";
+import {severity, tag} from "allure-js-commons";
 import CadastroPage from "../pages/cadastroPage";
 import dados from "../fixtures/dados-cadastro-login.json";
 
@@ -13,6 +14,9 @@ test.describe("Cadastro de usuário", () => {
 
   test.describe("Validação de Nome", () => {
     test("CT01 - Deve exibir erro quando nome estiver vazio", async () => {
+      await severity("normal");
+      await tag("ui");
+
       const cenario = dados.nomeVazio;
       await cadastroPage.apagandoNome(cenario.dados);
       const mensagemErro = cadastroPage.getMensagemErro("nome");
@@ -22,6 +26,9 @@ test.describe("Cadastro de usuário", () => {
     });
 
     test("CT02 - Deve exibir erro quando nome tiver menos de 3 caracteres", async () => {
+      await severity("normal");
+      await tag("ui");
+
       const cenario = dados.nomeCurto;
       await cadastroPage.preencherFormulario(cenario.dados);
       const mensagemErro = cadastroPage.getMensagemErro("nome");
@@ -31,6 +38,9 @@ test.describe("Cadastro de usuário", () => {
     });
 
     test("CT03 - Deve exibir erro quando nome tiver números", async () => {
+      await severity("normal");
+      await tag("ui");
+
       const cenario = dados.nomeComNumeros;
       await cadastroPage.preencherFormulario(cenario.dados);
       const mensagemErro = cadastroPage.getMensagemErro("nome");
@@ -42,6 +52,9 @@ test.describe("Cadastro de usuário", () => {
 
   test.describe("Validação de Email", () => {
     test("CT04 - Deve exibir erro quando email não tiver o domínio após o @", async () => {
+      await severity("normal");
+      await tag("ui");
+
       const cenario = dados.emailSemDominio;
       await cadastroPage.preencherFormulario(cenario.dados);
       const mensagemErro = cadastroPage.getMensagemErro("email");
@@ -51,6 +64,9 @@ test.describe("Cadastro de usuário", () => {
     });
 
     test("CT05 - Deve exibir erro quando email não tiver a primeira parte antes do @", async () => {
+      await severity("normal");
+      await tag("ui");
+
       const cenario = dados.emailSemIdentificacao;
       await cadastroPage.preencherFormulario(cenario.dados);
       const mensagemErro = cadastroPage.getMensagemErro("email");
@@ -60,6 +76,9 @@ test.describe("Cadastro de usuário", () => {
     });
 
     test("CT06 - Deve exibir erro quando email não tiver o @", async () => {
+      await severity("normal");
+      await tag("ui");
+
       const cenario = dados.emailSemArroba;
       await cadastroPage.preencherFormulario(cenario.dados);
       const mensagemErro = cadastroPage.getMensagemErro("email");
@@ -69,6 +88,9 @@ test.describe("Cadastro de usuário", () => {
     });
 
     test("CT07 - Deve exibir erro quando email já estiver cadastrado", async () => {
+      await severity("normal");
+      await tag("ui");
+
       const cenario = dados.emailDuplicado;
       await cadastroPage.preencherFormulario(cenario.dados);
       await cadastroPage.getBotaoCadastrar().click();
@@ -79,6 +101,9 @@ test.describe("Cadastro de usuário", () => {
 
   test.describe("Validação de Senha", () => {
     test("CT08 - Deve exibir erro quando a senha contiver apenas letras minúsculas", async () => {
+      await severity("normal");
+      await tag("ui");
+
       const cenario = dados.senhaSemMaiusculas;
       await cadastroPage.preencherFormulario(cenario.dados);
       const mensagemErro = cadastroPage.getMensagemErro("senha");
@@ -88,6 +113,9 @@ test.describe("Cadastro de usuário", () => {
     });
 
     test("CT09 - Deve exibir erro quando a confirmação de senha for diferente da senha", async () => {
+      await severity("normal");
+      await tag("ui");
+
       const cenario = dados.senhaDivergente;
       await cadastroPage.preencherFormulario(cenario.dados);
       const mensagemErro = cadastroPage.getMensagemErro("senhaConfirmacao");
@@ -99,6 +127,9 @@ test.describe("Cadastro de usuário", () => {
 
   test.describe("Cadastro de Usuário (Caminho Feliz)", () => {
     test("CT10 - Deve cadastrar usuário com sucesso quando os dados forem válidos", async () => {
+      await severity("critical");
+      await tag("ui");
+
       const cenario = dados.valido;
       await cadastroPage.preencherFormulario(cenario.dados);
       await cadastroPage.getBotaoCadastrar().click();
