@@ -224,10 +224,13 @@ test.describe("Cadastro de Produto", () => {
 
       const nomeProduto = faker.commerce
         .productName()
-        .replace(/[^A-Za-zÀ-ÖØ-öø-ÿ\s]/g, "")
+        .normalize("NFD")
+        .replace(/[\u0300-\u036f]/g, "")
+        .replace(/[^A-Za-z\s]/g, "")
         .replace(/\s+/g, " ")
-        .trim();
-      const skuProduto = faker.string.alphanumeric(8).toUpperCase();
+        .trim()
+        .replace(/^./, (letra) => letra.toUpperCase());
+      const skuProduto = `${faker.string.alpha(1).toUpperCase()}${faker.string.alphanumeric(7).toUpperCase()}`;
 
       // await modal.fillName(cenario.dados.name);
       // await modal.fillSku(cenario.dados.sku);
