@@ -1,3 +1,5 @@
+import {expect} from "@playwright/test";
+
 export default class ProductsPage {
   constructor(page) {
     this.page = page;
@@ -46,11 +48,20 @@ export default class ProductsPage {
   }
 
   async filterByCategory(value) {
+    await this.categoryFilterSelect.waitFor({state: "visible", timeout: 10000});
+    await expect(this.categoryFilterSelect.locator("option")).not.toHaveCount(0);
     await this.categoryFilterSelect.selectOption(value);
   }
 
   async filterBySupplier(value) {
+    await this.supplierFilterSelect.waitFor({state: "visible", timeout: 10000});
+    await expect(this.supplierFilterSelect.locator("option")).not.toHaveCount(0);
     await this.supplierFilterSelect.selectOption(value);
+  }
+
+  async waitForSupplierOptions() {
+    await this.supplierFilterSelect.waitFor({state: "visible", timeout: 10000});
+    await expect(this.supplierFilterSelect.locator("option")).not.toHaveCount(0);
   }
 
   async clearFilters() {

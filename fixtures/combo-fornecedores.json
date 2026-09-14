@@ -1,0 +1,18 @@
+{
+  "valorPadrao": "",
+  "labelPadrao": "Todos os fornecedores",
+  "valores": [
+    { "value": "67", "label": "Alimentos Bom Sabor SA" },
+    { "value": "64",  "label": "BookWorld Distribuidora" },
+    { "value": "243", "label": "Betrsa Sul Logistica Ltda" },
+    { "value": "14", "label": "Editora Atlas" },
+    { "value": "22", "label": "Empresa Email Longo" },
+    { "value": "257",  "label": "Epsiaslon Sudeste Comercial Ltda" },
+    { "value": "202",  "label": "Epsilon Atacadista Ltda" },
+    { "value": "16", "label": "InfoParts Solutions" },
+    { "value": "2",  "label": "Livros & Cia" },
+    { "value": "11", "label": "MegaLivros Distribuição" },
+    { "value": "6",  "label": "ModaSul Fornecedora" },
+    { "value": "18", "label": "ModaTrend Suppliers" }
+  ]
+}
