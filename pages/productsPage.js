@@ -6,6 +6,9 @@ export default class ProductsPage {
     this.productSearchInput = page.getByTestId("product-search-input");
     this.categoryFilterSelect = page.getByTestId("category-filter-select");
     this.supplierFilterSelect = page.getByTestId("supplier-filter-select");
+    this.productsCount = page.getByTestId("products-count");
+    this.currentPage = page.getByTestId("current-page");
+    this.nextPageButton = page.getByTestId("next-page-button");
 
     this.productCell = {
       id: (id) => page.getByTestId(`product-id-${id}`),
@@ -84,6 +87,10 @@ export default class ProductsPage {
 
   getLastViewDetailsButton() {
     return this.page.locator('[data-testid^="view-details-product-"]').last();
+  }
+
+  getProductCell(id, field) {
+    return this.productCell[field](id);
   }
 
   async getLastProductName() {
