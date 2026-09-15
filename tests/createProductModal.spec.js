@@ -195,6 +195,7 @@ test.describe("Cadastro de Produto", () => {
       await modal.fillStock(cenario.dados.stock);
       await modal.fillSku(cenario.dados.sku);
       await modal.selectCategory(cenario.dados.category);
+      await modal.selectSupplier(cenario.dados.supplier);
       await modal.submit();
       const toastErro = modal.getToast(cenario.esperado.mensagem);
       await expect(toastErro).toBeVisible();
