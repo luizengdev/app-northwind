@@ -2,6 +2,7 @@ import {test, expect} from "@playwright/test";
 import {severity, tag} from "allure-js-commons";
 import CadastroPage from "../pages/cadastroPage";
 import dados from "../fixtures/dados-cadastro-login.json";
+import {faker} from "@faker-js/faker";
 
 test.describe("Cadastro de usuário", () => {
   let cadastroPage;
@@ -131,7 +132,10 @@ test.describe("Cadastro de usuário", () => {
       await tag("ui");
 
       const cenario = dados.valido;
-      await cadastroPage.preencherFormulario(cenario.dados);
+      // await cadastroPage.preencherFormulario(cenario.dados);
+
+      // email unico a cada execucao
+      await cadastroPage.preencherFormulario({...cenario.dados, email: faker.internet.email()});
       await cadastroPage.getBotaoCadastrar().click();
       const toastErro = cadastroPage.getToast(cenario.esperado.mensagem);
       await expect(toastErro).toBeVisible();

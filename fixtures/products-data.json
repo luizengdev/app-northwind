@@ -266,10 +266,10 @@
       "stock": "10",
       "sku": "CAMI-012",
       "category": "",
-      "supplier": "BookExpress"
+      "supplier": "Livros & Cia"
     },
     "esperado": {
-      "mensagem": "Erro ao adicionar"
+      "mensagem": "Campos obrigatórios não preenchidos: category_id."
     }
   },
   "fornecedorObrigatorio": {
@@ -283,7 +283,7 @@
       "supplier": ""
     },
     "esperado": {
-      "mensagem": "Erro ao adicionar"
+      "mensagem": "Campos obrigatórios não preenchidos: supplier_id."
     }
   },
   "edicaoNomeObrigatorio": {
