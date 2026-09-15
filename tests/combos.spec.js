@@ -15,20 +15,20 @@ test.describe("[Gestao de Produtos] Validacao dos Combos", () => {
     await page.locator('[data-testid^="view-details-product-"]').first().waitFor({state: "visible", timeout: 3000});
   });
   test.describe("Fornecedores", () => {
-    test("Deve exibir o combo de fornecedores na tela", async () => {
+    test("CT-01 - Deve exibir o combo de fornecedores na tela", async () => {
       await severity("normal");
       await tag("combo-fornecedores");
 
       await expect(productsPage.supplierFilterSelect).toBeVisible();
     });
 
-    test("Deve exibir a opcao padrao Todos os fornecedores", async () => {
+    test("CT-02 - Deve exibir a opcao padrao Todos os fornecedores", async () => {
       await severity("normal");
       await tag("combo-fornecedores");
       await expect(productsPage.supplierFilterSelect).toHaveValue("");
     });
 
-    test("Deve conter todos os fornecedores esperados no combo", async () => {
+    test("CT-03 - Deve conter todos os fornecedores esperados no combo", async () => {
       await severity("normal");
       await tag("combo-fornecedores");
 
@@ -39,7 +39,7 @@ test.describe("[Gestao de Produtos] Validacao dos Combos", () => {
       }
     });
 
-    test("Listar todos os fornecedores no terminal", async () => {
+    test("CT-04 - Listar todos os fornecedores no terminal", async () => {
       await severity("normal");
       await tag("combo-fornecedores");
 
@@ -58,21 +58,21 @@ test.describe("[Gestao de Produtos] Validacao dos Combos", () => {
   });
 
   test.describe("Categorias", () => {
-    test("Deve exibir o combo de categorias na tela", async () => {
+    test("CA-01 - Deve exibir o combo de categorias na tela", async () => {
       await severity("normal");
       await tag("combo-categorias");
 
       await expect(productsPage.categoryFilterSelect).toBeVisible();
     });
 
-    test("Deve exibir a opcao padrao Todas as categorias", async () => {
+    test("CA-02 - Deve exibir a opcao padrao Todas as categorias", async () => {
       await severity("normal");
       await tag("combo-categorias");
 
       await expect(productsPage.categoryFilterSelect).toHaveValue("");
     });
 
-    test("Deve conter todas as categorias esperadas no combo", async () => {
+    test("CA-03 - Deve conter todas as categorias esperadas no combo", async () => {
       await severity("normal");
       await tag("combo-categorias");
 
@@ -83,7 +83,7 @@ test.describe("[Gestao de Produtos] Validacao dos Combos", () => {
       }
     });
 
-    test("Listar todas as categorias no terminal", async () => {
+    test("CA-04 - Listar todas as categorias no terminal", async () => {
       await severity("normal");
       await tag("combo-categorias");
 
