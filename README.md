@@ -60,12 +60,12 @@ Este projeto foi desenvolvido para compor um portfólio técnico sólido, mostra
 ## 📊 Evidências do Allure Report
 
 <div align="center">
-  <img src="docs/allure/suites.png" width="1080" alt="Suites do relatório" />
+  <img src="docs/allure/suites.png" width="800" alt="Suites do relatório" />
 </div>
 
 <div align="center">
-  <img src="docs/allure/graphs.png" width="600" alt="Gráficos do relatório" />
-  <img src="docs/allure/overview.png" width="600" alt="Overview do relatório" />
+  <img src="docs/allure/graphs.png" width="400" alt="Gráficos do relatório" />
+  <img src="docs/allure/overview.png" width="400" alt="Overview do relatório" />
 </div>
 
 <p align="center">
